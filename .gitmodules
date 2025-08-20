@@ -1,0 +1,9 @@
+[submodule "libjpeg-turbo"]
+	path = libjpeg-turbo
+	url = https://github.com/libjpeg-turbo/libjpeg-turbo
+[submodule "zlib"]
+	path = zlib
+	url = https://github.com/madler/zlib
+[submodule "qpdf"]
+	path = qpdf
+	url = https://github.com/qpdf/qpdf
