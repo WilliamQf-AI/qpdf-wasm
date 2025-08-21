@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 352f67e9..0aa06da1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -104,7 +104,7 @@ message(STATUS "VERSION = ${VERSION}, BUILD = ${BUILD}")
+ include(cmakescripts/PackageInfo.cmake)
+ 
+ # Detect CPU type and whether we're building 64-bit or 32-bit code
+-math(EXPR BITS "${CMAKE_SIZEOF_VOID_P} * 8")
++math(EXPR BITS "4 * 8")
+ string(TOLOWER ${CMAKE_SYSTEM_PROCESSOR} CMAKE_SYSTEM_PROCESSOR_LC)
+ set(COUNT 1)
+ foreach(ARCH ${CMAKE_OSX_ARCHITECTURES})
+diff --git a/src/jconfigint.h.in b/src/jconfigint.h.in
+index 5c14e32a..4077c3db 100644
+--- a/src/jconfigint.h.in
++++ b/src/jconfigint.h.in
+@@ -20,7 +20,7 @@
+ #define VERSION  "@VERSION@"
+ 
+ /* The size of `size_t', as computed by sizeof. */
+-#define SIZEOF_SIZE_T  @SIZE_T@
++#define SIZEOF_SIZE_T 4
+ 
+ /* Define if your compiler has __builtin_ctzl() and sizeof(unsigned long) == sizeof(size_t). */
+ #cmakedefine HAVE_BUILTIN_CTZL

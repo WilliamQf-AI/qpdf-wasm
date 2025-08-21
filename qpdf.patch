@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5e2af634..86de6d7b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -289,7 +289,7 @@ endif()
+ # tools.
+ set(JPEG_INCLUDE)
+ 
+-if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
++if(4 EQUAL 8)
+   set(WORDSIZE 64)
+ else()
+   set(WORDSIZE 32)
