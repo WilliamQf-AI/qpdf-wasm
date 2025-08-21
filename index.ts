@@ -78,7 +78,7 @@ class Qpdf {
   write(): Uint8Array {
     this.module._qpdf_init_write_memory(this.qpdfData);
     this.throwIfError();
-    this.module._qpdf_set_preserve_encryption(this.qpdfData, 1); // Cannot fail.
+    this.module._qpdf_set_preserve_encryption(this.qpdfData, 0); // Cannot fail.
     this.module._qpdf_write(this.qpdfData);
     this.throwIfError();
     const bufferSize = this.module._qpdf_get_buffer_length(this.qpdfData);
