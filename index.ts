@@ -17,9 +17,9 @@
  * <https://www.gnu.org/licenses/>.
  */
 
-import qpdfModule, { type QpdfModule } from "./qpdf.js";
+import qpdf = require("./qpdf.js");
 
-export class QpdfError extends Error {
+class QpdfError extends Error {
   constructor(...args: ConstructorParameters<ErrorConstructor>) {
     super(...args);
     if (Error.captureStackTrace) Error.captureStackTrace(this, QpdfError);
@@ -27,16 +27,16 @@ export class QpdfError extends Error {
   }
 }
 
-export class Qpdf {
-  module: QpdfModule;
+class Qpdf {
+  module: qpdf.QpdfModule;
   qpdfData: number;
 
   static async open(file: Buffer | Uint8Array): Promise<Qpdf> {
-    const module = await qpdfModule();
+    const module = await qpdf.default();
     return new Qpdf(module, file);
   }
 
-  private constructor(module: QpdfModule, file: Buffer | Uint8Array) {
+  private constructor(module: qpdf.QpdfModule, file: Buffer | Uint8Array) {
     this.module = module;
     this.qpdfData = this.module._qpdf_init();
     if (this.qpdfData === 0) throw new QpdfError("Failed to init qpdf.");
@@ -97,3 +97,5 @@ export class Qpdf {
     throw new QpdfError(errorMessage);
   }
 }
+
+export = { Qpdf, QpdfError };

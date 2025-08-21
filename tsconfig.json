@@ -33,7 +33,7 @@
     "sourceMap": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": false,
-    "erasableSyntaxOnly": true,
+    "erasableSyntaxOnly": false, // Needed so long as we build to CJS.
     "esModuleInterop": false,
     "isolatedDeclarations": false,
     "isolatedModules": true,

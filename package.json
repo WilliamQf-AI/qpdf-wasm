@@ -17,7 +17,6 @@
   "scripts": {
     "build": "./build.sh"
   },
-  "type": "module",
   "exports": {
     ".": {
       "types": "./index.ts",

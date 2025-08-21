@@ -65,7 +65,6 @@ function build_wasm() {
          -sALLOW_MEMORY_GROWTH \
          -sENVIRONMENT=node \
          -sFILESYSTEM=0 \
-         -sEXPORT_ES6 \
          -sMODULARIZE 
 }
 
