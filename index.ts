@@ -19,6 +19,13 @@
 
 import qpdf = require("./qpdf.js");
 
+type IQpdfLogger = {
+  log: (message: string) => void;
+  error: (message: string) => void;
+};
+
+type QpdfOptions = { logger?: IQpdfLogger };
+
 class QpdfError extends Error {
   constructor(...args: ConstructorParameters<ErrorConstructor>) {
     super(...args);
@@ -31,8 +38,17 @@ class Qpdf {
   module: qpdf.QpdfModule;
   qpdfData: number;
 
-  static async open(file: Buffer | Uint8Array): Promise<Qpdf> {
-    const module = await qpdf.default();
+  static async open(
+    file: Buffer | Uint8Array,
+    { logger }: QpdfOptions = {},
+  ): Promise<Qpdf> {
+    const moduleArg = logger
+      ? {
+          print: (message: string) => logger.log(message),
+          printErr: (message: string) => logger.error(message),
+        }
+      : {};
+    const module = await qpdf.default(moduleArg);
     return new Qpdf(module, file);
   }
 
