@@ -48,9 +48,7 @@ export class Qpdf {
     try {
       this.module._qpdf_check_pdf(this.qpdfData);
     } catch (cause) {
-      throw new QpdfError("Check function did not return normally.", {
-        cause,
-      });
+      throw new QpdfError("Check function did not return normally.", { cause });
     }
     this.throwIfError();
   }
