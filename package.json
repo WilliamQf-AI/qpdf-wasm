@@ -9,7 +9,10 @@
     "dist/index.d.ts",
     "dist/index.js",
     "dist/qpdf.js",
-    "dist/qpdf.wasm"
+    "dist/qpdf.wasm",
+    "LICENSE.md",
+    "NOTICE.md",
+    "COPYRIGHT.md"
   ],
   "scripts": {
     "build": "./build.sh"
