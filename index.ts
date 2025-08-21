@@ -50,8 +50,11 @@ export class Qpdf {
     }
     const descriptionPtr = ptr;
     const filePtr = ptr + 8;
-    this.module.HEAP8.set([100, 111, 99, 46, 112, 100, 102, 0], descriptionPtr); // "doc.pdf\0"
-    this.module.HEAP8.set(file, filePtr);
+    this.module.HEAPU8.set(
+      [100, 111, 99, 46, 112, 100, 102, 0],
+      descriptionPtr,
+    ); // "doc.pdf\0"
+    this.module.HEAPU8.set(file, filePtr);
     this.module._qpdf_read_memory(
       this.qpdfData,
       descriptionPtr,
@@ -80,7 +83,7 @@ export class Qpdf {
     this.throwIfError();
     const bufferSize = this.module._qpdf_get_buffer_length(this.qpdfData);
     const bufferPtr = this.module._qpdf_get_buffer(this.qpdfData);
-    return this.module.HEAP8.slice(bufferPtr, bufferPtr + bufferSize);
+    return this.module.HEAPU8.slice(bufferPtr, bufferPtr + bufferSize);
   }
 
   private throwIfError() {

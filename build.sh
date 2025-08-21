@@ -59,7 +59,7 @@ function build_wasm() {
          $(PKG_CONFIG_PATH="$install_prefix/lib/pkgconfig" pkg-config --env-only --static --cflags --libs libqpdf) \
          -Wl,--gc-sections \
          --no-entry \
-         -sEXPORTED_RUNTIME_METHODS=HEAP8,UTF8ToString \
+         -sEXPORTED_RUNTIME_METHODS=HEAPU8,UTF8ToString \
          -sEXPORTED_FUNCTIONS=_qpdf_init,_qpdf_cleanup,_qpdf_has_error,_qpdf_get_error,_qpdf_get_error_full_text,_qpdf_get_error_code,_qpdf_get_error_filename,_qpdf_get_error_file_position,_qpdf_get_error_message_detail,_qpdf_check_pdf,_qpdf_read_memory,_qpdf_init_write_memory,_qpdf_write,_qpdf_get_buffer_length,_qpdf_get_buffer,_qpdf_set_preserve_encryption,_malloc,_free \
          -sMAXIMUM_MEMORY=67108864 \
          -sALLOW_MEMORY_GROWTH \

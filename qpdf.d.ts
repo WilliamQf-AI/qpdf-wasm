@@ -42,7 +42,7 @@ export type QpdfModule = {
   _qpdf_set_preserve_encryption(qpdfData: number, value: number): void;
   _malloc(size: number): number;
   _free(ptr: number): void;
-  HEAP8: Uint8Array;
+  HEAPU8: Uint8Array;
   UTF8ToString(
     ptr: number,
     maxBytesToRead?: number,
