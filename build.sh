@@ -65,6 +65,7 @@ function build_wasm() {
          -sALLOW_MEMORY_GROWTH \
          -sENVIRONMENT=node \
          -sFILESYSTEM=0 \
+         -sNO_DISABLE_EXCEPTION_CATCHING \
          -sMODULARIZE 
 }
 
