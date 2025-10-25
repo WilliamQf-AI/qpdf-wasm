@@ -1,0 +1,66 @@
+qpdf:
+https://github.com/qpdf/qpdf.git
+https://github.com/j3k0/qpdf.js/tree/master/demo
+https://github.com/j3k0/qpdf
+
+https://github.com/lafraise-pro/qpdf-wasm
+https://app.unpkg.com/@jspawn/qpdf-wasm@0.0.2
+https://github.com/jsscheller/qpdf-wasm
+https://github.com/neslinesli93/qpdf-wasm
+
+pushd E:\dev-tools\qpdf-12.2.0-msvc32\bin
+
+& "C:\Users\r187\Downloads\qpdf-12.2.0-msvc32\bin\qpdf.exe" `
+  --empty `
+  --pages `
+  "C:\Users\r187\Desktop\lc\合并pdf\merged (3).pdf" `
+  "C:\Users\r187\Desktop\lc\360联运SDK集成说明V2.0.0.1.pdf" `
+  -- `
+  merged_output.pdf
+  
+  
+  qpdf --empty --pages "C:\Users\r187\Desktop\lc\合并pdf\merged (3).pdf" 1-z -- merged.pdf
+  
+   ./qpdf --qdf --empty --pages "C:\Users\r187\Desktop\lc\合并pdf\merged (3).pdf" 1-z "C:\Users\r187\Desktop\lc\360联运SDK集成说明V2.0.0.1.pdf" 1-z -- merged.pdf
+   
+   pushd E:\dev-tools\qpdf-12.2.0-msvc32\bin>
+   .\qpdf.exe --empty --pages "C:\Users\r187\Desktop\lc\合并pdf\merged (3).pdf" 1-z -- merged.pdf
+   
+   .\qpdf.exe  "C:\Users\r187\Desktop\lc\合并pdf\merged (3).pdf" fixed_file1.pdf
+   
+   
+   https://github.com/neslinesli93/qpdf-wasm
+   手动拉镜像依赖：
+   docker pull emscripten/emsdk:3.1.74
+docker pull node:22
+编译：
+docker compose build --no-cache
+如果报错，说明环境变量有问题，没有带入，换成以下：
+PWD=$(pwd) sudo -E docker compose up
+或者（建议使用上面的命令编译完成后，也执行一次以下命令，可以把编译产物拷贝到dist目录下）：
+docker compose up
+
+
+其它工具，进入容器：
+docker run -it --rm --entrypoint bash qpdf-wasm:12.2.0
+docker compose run --rm web bash
+
+
+在控制台打印虚拟文件目录：
+console.log(qpdf.FS.readdir("/"));
+
+
+# 重新构建，确保源码被克隆下来
+docker compose build --no-cache
+docker compose up
+
+# 进入容器
+docker compose run --rm web bash
+
+# 查看源码
+ls /src/lib/qpdf
+
+
+
+
+
