@@ -1,10 +1,12 @@
-version: "3"
+version: "3.9"
 
 services:
+  # 前端 / WASM 测试环境
   web:
     build: .
+    image: qpdf-wasm:12.2.0
     command: bash -c 'yarn && yarn test'
     volumes:
       - "$PWD:/src"
     ports:
-      - 5173:5173
+      - "5173:5173"

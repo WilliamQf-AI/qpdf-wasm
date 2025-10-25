@@ -9,7 +9,7 @@ fn_git_clean() {
 OUT_DIR="$PWD/out"
 ROOT="$PWD"
 EMCC_FLAGS_DEBUG="-Os -g3"
-EMCC_FLAGS_RELEASE="-Oz -flto -fvisibility=hidden"
+EMCC_FLAGS_RELEASE="-Oz -flto -fvisibility=hidden -fwasm-exceptions -s SUPPORT_LONGJMP=wasm"
 
 export CPPFLAGS="-I$OUT_DIR/include"
 export LDFLAGS="-L$OUT_DIR/lib"
@@ -38,6 +38,10 @@ emmake make -j install
 
 cd "$ROOT/lib/qpdf"
 fn_git_clean
+
+# 应用 qpdf 宽容模式补丁
+#(cd /src/lib/qpdf && git apply /src/patches/qpdf-allow-bad.patch)
+
 emcmake cmake -S . -B build \
   -DCMAKE_INSTALL_PREFIX="$OUT_DIR" \
   -DRANDOM_DEVICE="/dev/random"
@@ -58,10 +62,15 @@ emcc \
   --post-js "$ROOT/js/post.js" \
   -s WASM_BIGINT=1 \
   -s ALLOW_MEMORY_GROWTH=1 \
-  -s EXPORTED_RUNTIME_METHODS='["callMain","FS","NODEFS","WORKERFS","ENV"]' \
+  -s EXPORTED_FUNCTIONS='["_main"]'
+  -s EXPORTED_RUNTIME_METHODS='["callMain","FS","ENV"]' \
+# -s EXPORTED_RUNTIME_METHODS='["callMain","FS","NODEFS","WORKERFS","ENV"]' \
   -s INCOMING_MODULE_JS_API='["noInitialRun","noFSInit","locateFile","preRun"]' \
-  -s NO_DISABLE_EXCEPTION_CATCHING=1 \
+  #-s NO_DISABLE_EXCEPTION_CATCHING=1 \
+  -s FORCE_FILESYSTEM=1 \
   -s MODULARIZE=1 \
+  -s SUPPORT_LONGJMP=wasm \
+  -fwasm-exceptions \
   -o "$ROOT/dist/qpdf.js" \
   "$ROOT/lib/qpdf/build/libqpdf/libqpdf.a" \
   "$ROOT/lib/qpdf/qpdf/qpdf.cc" \

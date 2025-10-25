@@ -1,0 +1,45 @@
+diff --git a/qpdf/main.cc b/qpdf/main.cc
+index 1234567..89abcde 100644
+--- a/qpdf/main.cc
++++ b/qpdf/main.cc
+@@ -50,6 +50,7 @@ static void usage()
+     std::cout << "  --ignore-xref-streams   ignore cross-reference streams\n";
+     std::cout << "  --suppress-warnings     suppress warning messages\n";
+     std::cout << "  --qdf                   generate QDF form of PDF\n";
++    std::cout << "  --allow-bad             allow parsing of damaged PDFs (may produce partial output)\n";
+     std::cout << std::endl;
+ }
+ 
+@@ -120,6 +121,7 @@ int main(int argc, char* argv[])
+     std::string infile;
+     std::string outfile;
+     std::string password;
++    bool allow_bad = false;
+ 
+     for (int i = 1; i < argc; ++i)
+     {
+@@ -150,6 +152,10 @@ int main(int argc, char* argv[])
+             qdf_mode = true;
+             continue;
+         }
++        else if (arg == "--allow-bad")
++        {
++            allow_bad = true;
++            continue;
++        }
+         else if (infile.empty())
+         {
+             infile = arg;
+@@ -450,7 +456,11 @@ int main(int argc, char* argv[])
+     try
+     {
+-        qpdf.processFile(infile, password, outfile);
++        // 传递 allow_bad 给 QPDF
++        if (allow_bad)
++        {
++            qpdf.setAttemptRecovery(true);
++        }
++        qpdf.processFile(infile, password, outfile);
+     }
+     catch (QPDFExc& e)
+     {
